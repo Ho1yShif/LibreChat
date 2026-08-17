@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: librechat
+    runtime: docker
+    plan: starter
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: DOMAIN_CLIENT
+        sync: false
+      - key: DOMAIN_SERVER
+        sync: false
+      - key: CREDS_KEY
+        sync: false
+      - key: CREDS_IV
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_REFRESH_SECRET
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
