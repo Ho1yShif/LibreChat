@@ -7,12 +7,7 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /health
     autoDeployTrigger: commit
-    dockerCommand: >-
-      sh -c "mkdir -p /app/data/uploads /app/data/images &&
-      rm -rf /app/uploads /app/client/public/images &&
-      ln -s /app/data/uploads /app/uploads &&
-      ln -s /app/data/images /app/client/public/images &&
-      npm run backend"
+    dockerCommand: sh /app/scripts/render-start.sh
     disk:
       name: librechat-data
       mountPath: /app/data
