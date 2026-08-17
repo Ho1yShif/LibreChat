@@ -9,18 +9,26 @@ services:
     autoDeployTrigger: commit
     envVars:
       - key: MONGO_URI
-        sync: false
-      - key: DOMAIN_CLIENT
-        sync: false
-      - key: DOMAIN_SERVER
-        sync: false
+        value: mongodb://librechat-mongo:27017/LibreChat
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
       - key: CREDS_KEY
         sync: false
       - key: CREDS_IV
         sync: false
-      - key: JWT_SECRET
-        sync: false
-      - key: JWT_REFRESH_SECRET
-        sync: false
       - key: OPENAI_API_KEY
         sync: false
+
+  - type: pserv
+    name: librechat-mongo
+    runtime: image
+    plan: starter
+    region: oregon
+    image:
+      url: docker.io/library/mongo:8.0.20
+    disk:
+      name: mongo-data
+      mountPath: /data/db
+      sizeGB: 1
