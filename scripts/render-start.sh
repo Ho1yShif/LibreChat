@@ -8,13 +8,15 @@ set -e
 DATA_DIR="${LIBRECHAT_DATA_DIR:-/app/data}"
 
 # Render assigns the MongoDB private service its own internal host and port, so
-# MONGO_HOSTPORT (render.yaml) supplies them and the URI is assembled here.
-if [ -n "$MONGO_URI" ]; then
-  echo "[render] Connecting to the MONGO_URI set on this service."
-elif [ -n "$MONGO_HOSTPORT" ]; then
+# MONGO_HOSTPORT (render.yaml) supplies them and the URI is assembled here. To use
+# an external database instead, delete the librechat-mongo service, which removes
+# MONGO_HOSTPORT, then set MONGO_URI on the web service.
+if [ -n "$MONGO_HOSTPORT" ]; then
   MONGO_URI="mongodb://$MONGO_HOSTPORT/LibreChat"
   export MONGO_URI
   echo "[render] Connecting to the librechat-mongo private service at $MONGO_HOSTPORT."
+elif [ -n "$MONGO_URI" ]; then
+  echo "[render] Connecting to the MONGO_URI set on this service."
 fi
 
 mkdir -p "$DATA_DIR/uploads" "$DATA_DIR/images"
