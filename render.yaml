@@ -13,8 +13,11 @@ services:
       mountPath: /app/data
       sizeGB: 1
     envVars:
-      - key: MONGO_URI
-        value: mongodb://librechat-mongo:27017/LibreChat
+      - key: MONGO_HOSTPORT
+        fromService:
+          name: librechat-mongo
+          type: pserv
+          property: hostport
       - key: LIBRECHAT_TEMP_CREDENTIALS_PATH
         value: /app/data/.env.temp
       - key: JWT_SECRET

@@ -7,6 +7,13 @@ set -e
 
 DATA_DIR="${LIBRECHAT_DATA_DIR:-/app/data}"
 
+# Render assigns the MongoDB private service its own internal host and port, so
+# MONGO_HOSTPORT (render.yaml) supplies them and the URI is assembled here.
+if [ -z "$MONGO_URI" ] && [ -n "$MONGO_HOSTPORT" ]; then
+  MONGO_URI="mongodb://$MONGO_HOSTPORT/LibreChat"
+  export MONGO_URI
+fi
+
 mkdir -p "$DATA_DIR/uploads" "$DATA_DIR/images"
 rm -rf /app/uploads /app/client/public/images
 ln -s "$DATA_DIR/uploads" /app/uploads
