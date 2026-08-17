@@ -7,17 +7,19 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /health
     autoDeployTrigger: commit
+    disk:
+      name: librechat-data
+      mountPath: /app/data
+      sizeGB: 1
     envVars:
       - key: MONGO_URI
         value: mongodb://librechat-mongo:27017/LibreChat
+      - key: LIBRECHAT_TEMP_CREDENTIALS_PATH
+        value: /app/data/.env.temp
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET
         generateValue: true
-      - key: CREDS_KEY
-        sync: false
-      - key: CREDS_IV
-        sync: false
       - key: OPENAI_API_KEY
         sync: false
 
