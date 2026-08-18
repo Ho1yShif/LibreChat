@@ -2,7 +2,9 @@ services:
   - type: web
     name: librechat
     runtime: docker
-    plan: starter
+    # starter's 512MB caps the Node heap near 258MB, which a logged-in session
+    # exhausts within minutes.
+    plan: standard
     region: oregon
     dockerfilePath: ./Dockerfile
     healthCheckPath: /health
@@ -18,10 +20,20 @@ services:
           name: librechat-mongo
           type: pserv
           property: hostport
+      - key: MONGO_USERNAME
+        fromService:
+          name: librechat-mongo
+          type: pserv
+          envVarKey: MONGO_INITDB_ROOT_USERNAME
+      - key: MONGO_PASSWORD
+        fromService:
+          name: librechat-mongo
+          type: pserv
+          envVarKey: MONGO_INITDB_ROOT_PASSWORD
       - key: LIBRECHAT_TEMP_CREDENTIALS_PATH
         value: /app/data/.env.temp
       - key: ALLOW_REGISTRATION
-        value: true
+        value: 'true'
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET
@@ -36,6 +48,13 @@ services:
     region: oregon
     image:
       url: docker.io/library/mongo:8.0.20
+    envVars:
+      # The mongo image only creates this user while /data/db is empty, so
+      # adding authentication to an existing deploy needs a new disk.
+      - key: MONGO_INITDB_ROOT_USERNAME
+        value: librechat
+      - key: MONGO_INITDB_ROOT_PASSWORD
+        generateValue: true
     disk:
       name: mongo-data
       mountPath: /data/db
