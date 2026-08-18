@@ -41,6 +41,9 @@
 <a href="https://template.cloud.sealos.io/deploy?templateName=librechat">
   <img src="https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg" alt="Deploy on Sealos" height="30">
 </a>
+<a href="https://render.com/deploy?repo=https://github.com/danny-avila/LibreChat">
+  <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" height="30">
+</a>
 </p>
 
 <p align="center">
@@ -50,6 +53,13 @@
       alt="Translation Progress">
   </a>
 </p>
+
+## ☁️ Deploy to Render
+
+The Render button above deploys LibreChat and a MongoDB private service from
+[`render.yaml`](render.yaml). You will be prompted for an `OPENAI_API_KEY`, and everything else is
+generated or defaulted. See the [Blueprint spec](https://render.com/docs/blueprint-spec) to change
+plans, region, or disk sizes.
 
 ## 🚀 What's New in v0.8.8-rc1
 
