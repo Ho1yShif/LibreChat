@@ -74,13 +74,6 @@
 
 Read the [full v0.8.8-rc1 changelog](https://www.librechat.ai/changelog/v0.8.8-rc1).
 
-## ☁️ Deploy to Render
-
-The Render button above deploys LibreChat and a MongoDB private service from
-[`render.yaml`](render.yaml). You will be prompted for an `OPENAI_API_KEY`, and everything else is
-generated or defaulted. See the [Blueprint spec](https://render.com/docs/blueprint-spec) to change
-plans, region, or disk sizes.
-
 # ✨ Features
 
 - 🖥️ **UI & Experience** inspired by ChatGPT with enhanced design and features
