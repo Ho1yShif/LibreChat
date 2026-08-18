@@ -20,6 +20,8 @@ services:
           property: hostport
       - key: LIBRECHAT_TEMP_CREDENTIALS_PATH
         value: /app/data/.env.temp
+      - key: ALLOW_REGISTRATION
+        value: true
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_REFRESH_SECRET
