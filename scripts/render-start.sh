@@ -1,22 +1,21 @@
 #!/bin/sh
 # Start command for Render deploys (see render.yaml).
-# Render attaches one disk per service, but LibreChat writes user files to two
-# locations (api/config/paths.js). Both are empty in the built image, so they can
-# be replaced with symlinks onto the disk mounted at /app/data.
+#
+# Render assigns the MongoDB private service its own internal host and port, and
+# blueprints cannot concatenate strings, so MONGO_HOSTPORT supplies the address
+# and the URI is assembled here. To use an external database, delete the
+# librechat-mongo service, which removes MONGO_HOSTPORT, then set MONGO_URI.
+#
+# Render also attaches one disk per service, while LibreChat writes user files to
+# two locations (api/config/paths.js). Both are empty in the built image, so they
+# are replaced with symlinks onto the disk. Re-running is safe because rm removes
+# the previous symlink rather than the files on the disk.
 set -e
 
-DATA_DIR="${LIBRECHAT_DATA_DIR:-/app/data}"
+DATA_DIR=/app/data
 
-# Render assigns the MongoDB private service its own internal host and port, so
-# MONGO_HOSTPORT (render.yaml) supplies them and the URI is assembled here. To use
-# an external database instead, delete the librechat-mongo service, which removes
-# MONGO_HOSTPORT, then set MONGO_URI on the web service.
 if [ -n "$MONGO_HOSTPORT" ]; then
-  MONGO_URI="mongodb://$MONGO_HOSTPORT/LibreChat"
-  export MONGO_URI
-  echo "[render] Connecting to the librechat-mongo private service at $MONGO_HOSTPORT."
-elif [ -n "$MONGO_URI" ]; then
-  echo "[render] Connecting to the MONGO_URI set on this service."
+  export MONGO_URI="mongodb://$MONGO_HOSTPORT/LibreChat"
 fi
 
 mkdir -p "$DATA_DIR/uploads" "$DATA_DIR/images"
