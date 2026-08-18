@@ -54,13 +54,6 @@
   </a>
 </p>
 
-## ☁️ Deploy to Render
-
-The Render button above deploys LibreChat and a MongoDB private service from
-[`render.yaml`](render.yaml). You will be prompted for an `OPENAI_API_KEY`, and everything else is
-generated or defaulted. See the [Blueprint spec](https://render.com/docs/blueprint-spec) to change
-plans, region, or disk sizes.
-
 ## 🚀 What's New in v0.8.8-rc1
 
 - **Agent run control:** Interrupt or steer an Agent mid-run, queue follow-up messages, and reclaim, edit, or escalate pending steers.
@@ -80,6 +73,13 @@ plans, region, or disk sizes.
 - **Deployment and reliability:** Added configurable HTTP timeouts, Amazon DocumentDB 5.0+ support, low-noise Redis and browser observability, and a rolling-upgrade-safe generation protocol.
 
 Read the [full v0.8.8-rc1 changelog](https://www.librechat.ai/changelog/v0.8.8-rc1).
+
+## ☁️ Deploy to Render
+
+The Render button above deploys LibreChat and a MongoDB private service from
+[`render.yaml`](render.yaml). You will be prompted for an `OPENAI_API_KEY`, and everything else is
+generated or defaulted. See the [Blueprint spec](https://render.com/docs/blueprint-spec) to change
+plans, region, or disk sizes.
 
 # ✨ Features
 
